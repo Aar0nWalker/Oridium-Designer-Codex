@@ -24,9 +24,17 @@
 
 - [VS Code](https://code.visualstudio.com/) — редактор, в котором живёт агент.
 - [Codex — расширение VS Code](https://marketplace.visualstudio.com/items?itemName=openai.chatgpt) (нужна подписка ChatGPT Plus/Pro/Team). Альтернатива — [Codex CLI](https://developers.openai.com/codex/cli): `npm i -g @openai/codex`.
-- [Node.js LTS](https://nodejs.org/) и [Git](https://git-scm.com/downloads) — нужны установщику.
+- [Node.js LTS](https://nodejs.org/) и Git — нужны установщику (на macOS Git уже есть: терминал сам предложит Command Line Tools; на Windows — [git-scm.com](https://git-scm.com/downloads)).
 
 ### 2. Скачай репозиторий и запусти установку
+
+**macOS** (Терминал):
+
+```bash
+git clone https://github.com/Aar0nWalker/Oridium-Designer-Codex
+cd Oridium-Designer-Codex
+bash setup/install.sh
+```
 
 **Windows** (PowerShell):
 
@@ -34,14 +42,6 @@
 git clone https://github.com/Aar0nWalker/Oridium-Designer-Codex
 cd Oridium-Designer-Codex
 powershell -ExecutionPolicy Bypass -File setup/install.ps1
-```
-
-**macOS / Linux**:
-
-```bash
-git clone https://github.com/Aar0nWalker/Oridium-Designer-Codex
-cd Oridium-Designer-Codex
-bash setup/install.sh
 ```
 
 Установщик сам: поставит `uv` (если нет), скачает adb-mcp и blender-mcp, установит зависимости прокси и пропишет все MCP-серверы в `~/.codex/config.toml` (свои существующие настройки не потеряешь — блок помечен маркерами).
@@ -56,7 +56,7 @@ bash setup/install.sh
 
 ### 4. Работай
 
-1. Запусти прокси Adobe (нужен, только если работаешь с Adobe-программами): `scripts/start-adobe-proxy.ps1` (Windows) или `scripts/start-adobe-proxy.sh` (macOS).
+1. Запусти прокси Adobe (нужен, только если работаешь с Adobe-программами): `scripts/start-adobe-proxy.sh` (macOS) или `scripts/start-adobe-proxy.ps1` (Windows).
 2. Открой нужную программу (Figma / Blender / Photoshop …) и подключи её плагин.
 3. Открой папку репозитория в VS Code → запусти Codex → говори, что сделать:
 

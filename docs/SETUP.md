@@ -27,8 +27,8 @@
 ### Прокси
 
 Запускай перед каждой рабочей сессией и держи окно открытым:
-- Windows: `scripts/start-adobe-proxy.ps1`
 - macOS: `scripts/start-adobe-proxy.sh`
+- Windows: `scripts/start-adobe-proxy.ps1`
 
 ### UXP-плагины — Photoshop, Premiere Pro, InDesign
 
@@ -42,6 +42,15 @@
 
 ### CEP-расширения — After Effects, Illustrator
 
+macOS (Терминал, из папки репозитория):
+
+```bash
+defaults write com.adobe.CSXS.11 PlayerDebugMode 1
+mkdir -p ~/Library/Application\ Support/Adobe/CEP/extensions
+ln -s "$PWD/vendor/adb-mcp/cep/com.mikechambers.ae" ~/Library/Application\ Support/Adobe/CEP/extensions/
+ln -s "$PWD/vendor/adb-mcp/cep/com.mikechambers.ai" ~/Library/Application\ Support/Adobe/CEP/extensions/
+```
+
 Windows (PowerShell от администратора, репозиторий в `C:\путь\до\Oridium-Designer-Codex`):
 
 ```powershell
@@ -52,15 +61,6 @@ $ext = "$env:APPDATA\Adobe\CEP\extensions"
 New-Item -ItemType Directory -Force $ext | Out-Null
 cmd /c mklink /D "$ext\com.mikechambers.ae" "C:\путь\до\Oridium-Designer-Codex\vendor\adb-mcp\cep\com.mikechambers.ae"
 cmd /c mklink /D "$ext\com.mikechambers.ai" "C:\путь\до\Oridium-Designer-Codex\vendor\adb-mcp\cep\com.mikechambers.ai"
-```
-
-macOS:
-
-```bash
-defaults write com.adobe.CSXS.11 PlayerDebugMode 1
-mkdir -p ~/Library/Application\ Support/Adobe/CEP/extensions
-ln -s "$PWD/vendor/adb-mcp/cep/com.mikechambers.ae" ~/Library/Application\ Support/Adobe/CEP/extensions/
-ln -s "$PWD/vendor/adb-mcp/cep/com.mikechambers.ai" ~/Library/Application\ Support/Adobe/CEP/extensions/
 ```
 
 Затем в приложении: **Window → Extensions** → открой панель adb-mcp → **Connect**.
