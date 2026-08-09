@@ -1,0 +1,41 @@
+# >>> oridium-designer-codex >>>
+# Этот блок прописывает установщик Oridium Designer Codex.
+# Повторный запуск установки обновляет блок целиком — свои правки делай вне маркеров.
+
+# Figma — официальный Dev Mode MCP. Включается в Figma Desktop: Dev Mode → Enable MCP server.
+[mcp_servers.figma]
+url = "http://127.0.0.1:3845/mcp"
+
+# Blender — https://github.com/ahujasid/blender-mcp. Аддон tools/blender/addon.py + Connect в сайдбаре.
+[mcp_servers.blender]
+command = "uvx"
+args = ["blender-mcp"]
+startup_timeout_sec = 120
+
+# Adobe — https://github.com/mikechambers/adb-mcp.
+# Нужен запущенный прокси (scripts/start-adobe-proxy) и подключённый плагин в приложении.
+[mcp_servers.photoshop]
+command = "uv"
+args = ["run", "--with", "fonttools", "--with", "python-socketio", "--with", "mcp[cli]<2", "--with", "requests", "--with", "websocket-client", "--with", "numpy", "mcp", "run", "{{REPO_DIR}}/vendor/adb-mcp/mcp/ps-mcp.py"]
+startup_timeout_sec = 180
+
+[mcp_servers.premiere]
+command = "uv"
+args = ["run", "--with", "fonttools", "--with", "python-socketio", "--with", "mcp[cli]<2", "--with", "requests", "--with", "websocket-client", "--with", "pillow", "mcp", "run", "{{REPO_DIR}}/vendor/adb-mcp/mcp/pr-mcp.py"]
+startup_timeout_sec = 180
+
+[mcp_servers.indesign]
+command = "uv"
+args = ["run", "--with", "fonttools", "--with", "python-socketio", "--with", "mcp[cli]<2", "--with", "requests", "--with", "websocket-client", "--with", "pillow", "mcp", "run", "{{REPO_DIR}}/vendor/adb-mcp/mcp/id-mcp.py"]
+startup_timeout_sec = 180
+
+[mcp_servers.after_effects]
+command = "uv"
+args = ["run", "--with", "fonttools", "--with", "python-socketio", "--with", "mcp[cli]<2", "--with", "requests", "--with", "websocket-client", "--with", "pillow", "mcp", "run", "{{REPO_DIR}}/vendor/adb-mcp/mcp/ae-mcp.py"]
+startup_timeout_sec = 180
+
+[mcp_servers.illustrator]
+command = "uv"
+args = ["run", "--with", "fonttools", "--with", "python-socketio", "--with", "mcp[cli]<2", "--with", "requests", "--with", "websocket-client", "--with", "pillow", "mcp", "run", "{{REPO_DIR}}/vendor/adb-mcp/mcp/ai-mcp.py"]
+startup_timeout_sec = 180
+# <<< oridium-designer-codex <<<
