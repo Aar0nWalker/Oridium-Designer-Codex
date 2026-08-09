@@ -7,8 +7,8 @@ REPO="$(cd "$(dirname "$0")/.." && pwd)"
 echo "== Oridium Designer Codex: установка в $REPO"
 
 need() { command -v "$1" >/dev/null 2>&1 || { echo "ОШИБКА: не найден '$1'. $2"; exit 1; }; }
-need git  "Установи Git: https://git-scm.com/downloads"
-need node "Установи Node.js LTS: https://nodejs.org/"
+need git  "Установи Git: https://git-scm.com/downloads (агент: на macOS xcode-select --install или brew install git, затем перезапусти установку)"
+need node "Установи Node.js LTS: https://nodejs.org/ (агент: можешь поставить сам без прав администратора через nvm, затем перезапусти установку)"
 need npm  "Идёт вместе с Node.js"
 
 if ! command -v uv >/dev/null 2>&1; then

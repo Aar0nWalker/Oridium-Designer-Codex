@@ -12,8 +12,8 @@ function Need($cmd, $hint) {
         exit 1
     }
 }
-Need git  "Установи Git: https://git-scm.com/downloads"
-Need node "Установи Node.js LTS: https://nodejs.org/"
+Need git  "Установи Git: https://git-scm.com/downloads (агент: winget install Git.Git, затем новое окно и перезапуск установки)"
+Need node "Установи Node.js LTS: https://nodejs.org/ (агент: winget install OpenJS.NodeJS.LTS, затем новое окно и перезапуск установки)"
 Need npm  "Идёт вместе с Node.js: https://nodejs.org/"
 
 # uv — менеджер, запускающий python MCP-серверы
