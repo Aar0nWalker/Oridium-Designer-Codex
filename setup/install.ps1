@@ -40,10 +40,11 @@ npm install --no-fund --no-audit
 Pop-Location
 
 # Аддон Blender
-$blenderDir = Join-Path $repo 'tools\blender'
-New-Item -ItemType Directory -Force $blenderDir | Out-Null
-Write-Host "-- Скачиваю аддон Blender (blender-mcp)..."
-Invoke-WebRequest 'https://raw.githubusercontent.com/ahujasid/blender-mcp/main/addon.py' -OutFile (Join-Path $blenderDir 'addon.py')
+$blenderAddon = Join-Path $repo 'tools\blender\addon.py'
+if (-not (Test-Path -LiteralPath $blenderAddon -PathType Leaf)) {
+    throw 'В репозитории нет tools\blender\addon.py'
+}
+Write-Host "-- Аддон Blender уже включён в репозиторий."
 
 # Прописываем MCP-серверы в ~/.codex/config.toml (блок между маркерами)
 $template = [IO.File]::ReadAllText((Join-Path $repo 'codex\config.toml.template'), [Text.Encoding]::UTF8)

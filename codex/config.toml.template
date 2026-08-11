@@ -6,10 +6,11 @@
 [mcp_servers.figma]
 url = "http://127.0.0.1:3845/mcp"
 
-# Blender — https://github.com/ahujasid/blender-mcp. Аддон tools/blender/addon.py + Connect в сайдбаре.
+# Blender — проверенный аддон tools/blender/addon.py + Connect в сайдбаре.
 [mcp_servers.blender]
 command = "uvx"
-args = ["blender-mcp"]
+args = ["blender-mcp==1.8.0"]
+env = { BLENDER_MCP_DISABLE_TELEMETRY = "true" }
 startup_timeout_sec = 120
 
 # Adobe — https://github.com/mikechambers/adb-mcp.

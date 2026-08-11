@@ -30,9 +30,11 @@ fi
 echo "-- Ставлю зависимости прокси Adobe..."
 (cd "$ADB/adb-proxy-socket" && npm install --no-fund --no-audit)
 
-mkdir -p "$REPO/tools/blender"
-echo "-- Скачиваю аддон Blender (blender-mcp)..."
-curl -LsSf https://raw.githubusercontent.com/ahujasid/blender-mcp/main/addon.py -o "$REPO/tools/blender/addon.py"
+if [[ ! -s "$REPO/tools/blender/addon.py" ]]; then
+  echo "ОШИБКА: в репозитории нет tools/blender/addon.py" >&2
+  exit 1
+fi
+echo "-- Аддон Blender уже включён в репозиторий."
 
 echo "-- Прописываю MCP-серверы в ~/.codex/config.toml..."
 mkdir -p "$HOME/.codex"

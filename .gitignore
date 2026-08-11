@@ -1,4 +1,3 @@
 vendor/
 node_modules/
-tools/blender/addon.py
 .DS_Store

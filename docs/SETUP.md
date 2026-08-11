@@ -18,7 +18,8 @@
 3. В 3D-виде открой сайдбар (клавиша `N`) → вкладка **BlenderMCP** → **Connect to Claude** (кнопка называется так, работает с любым MCP-клиентом, включая Codex).
 4. По желанию — включи Poly Haven (бесплатные ассеты) в той же панели.
 
-Репозиторий: https://github.com/ahujasid/blender-mcp
+Проверенная копия аддона уже лежит в `tools/blender/addon.py`; совместимая версия MCP-сервера закреплена в конфиге.
+Телеметрия Blender MCP в готовом конфиге отключена.
 
 ## Adobe (Photoshop, Illustrator, After Effects, InDesign, Premiere Pro)
 
