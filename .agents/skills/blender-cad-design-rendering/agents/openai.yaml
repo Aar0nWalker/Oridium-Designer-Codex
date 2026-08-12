@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blender CAD: моделинг и проверка"
+  short_description: "Точный 3D по чертежам с проверкой экспорта"
+  default_prompt: "Используй $blender-cad-design-rendering, чтобы собрать точную Blender-модель по чертежу и проверить результат после экспорта."
