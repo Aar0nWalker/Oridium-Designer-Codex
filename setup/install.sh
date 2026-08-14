@@ -11,6 +11,17 @@ need git  "Установи Git: https://git-scm.com/downloads (агент: на
 need node "Установи Node.js LTS: https://nodejs.org/ (агент: можешь поставить сам без прав администратора через nvm, затем перезапусти установку)"
 need npm  "Идёт вместе с Node.js"
 
+RTK_VERSION="v0.45.0"
+RTK_BIN="$HOME/.local/bin/rtk"
+if [[ ! -x "$RTK_BIN" ]] || [[ "$("$RTK_BIN" --version 2>/dev/null || true)" != "rtk ${RTK_VERSION#v}" ]]; then
+  echo "-- Ставлю RTK ${RTK_VERSION} (экономия токенов)..."
+  curl -fsSL "https://raw.githubusercontent.com/rtk-ai/rtk/${RTK_VERSION}/install.sh" | RTK_VERSION="$RTK_VERSION" sh
+fi
+export PATH="$HOME/.local/bin:$PATH"
+need rtk "Установка RTK не удалась: https://github.com/rtk-ai/rtk"
+echo "-- Настраиваю RTK для Codex..."
+RTK_TELEMETRY_DISABLED=1 "$RTK_BIN" init -g --codex
+
 if ! command -v uv >/dev/null 2>&1; then
   echo "-- Ставлю uv (astral.sh/uv)..."
   curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -30,11 +41,15 @@ fi
 echo "-- Ставлю зависимости прокси Adobe..."
 (cd "$ADB/adb-proxy-socket" && npm install --no-fund --no-audit)
 
-if [[ ! -s "$REPO/tools/blender/addon.py" ]]; then
-  echo "ОШИБКА: в репозитории нет tools/blender/addon.py" >&2
-  exit 1
-fi
-echo "-- Аддон Blender уже включён в репозиторий."
+BLENDER_MCP_ADDON="$REPO/tools/blender/addon.py"
+BLENDER_OPTIMIZER_ADDON="$REPO/tools/blender/blender_model_optimizer-2.1.1.zip"
+for addon in "$BLENDER_MCP_ADDON" "$BLENDER_OPTIMIZER_ADDON"; do
+  if [[ ! -s "$addon" ]]; then
+    echo "ОШИБКА: в репозитории нет $addon" >&2
+    exit 1
+  fi
+done
+echo "-- Аддоны Blender MCP и 3D Model Optimizer уже включены в репозиторий."
 
 echo "-- Прописываю MCP-серверы в ~/.codex/config.toml..."
 mkdir -p "$HOME/.codex"
@@ -57,8 +72,9 @@ PY
 cat <<'EOF'
 
 == Готово. Осталось по одному разу настроить программы — docs/SETUP.md:
+   RTK для экономии токенов уже установлен и подключён к Codex.
    Figma:   Figma Desktop -> Dev Mode -> Enable MCP server
-   Blender: установить аддон tools/blender/addon.py -> Connect
+   Blender: установить два аддона из tools/blender (см. docs/SETUP.md) -> Connect
    Adobe:   UXP-плагины (PS/PR/ID) + CEP-расширения (AE/AI), см. docs/SETUP.md
    Прокси Adobe перед работой: scripts/start-adobe-proxy.sh
    Затем перезапусти VS Code / Codex.

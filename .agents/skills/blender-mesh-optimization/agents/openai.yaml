@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blender Mesh Optimization"
+  short_description: "Безопасное уменьшение полигонов в Blender"
+  default_prompt: "Используй $blender-mesh-optimization, чтобы уменьшить число полигонов и проверить качество модели."

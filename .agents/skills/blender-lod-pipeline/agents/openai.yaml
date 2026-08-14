@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blender LOD Pipeline"
+  short_description: "Создание и проверка уровней детализации"
+  default_prompt: "Используй $blender-lod-pipeline, чтобы подготовить проверенный набор LOD для модели."

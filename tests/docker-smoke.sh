@@ -27,6 +27,13 @@ else
 fi
 export PATH="$HOME/.local/bin:$PATH"
 
+test "$(rtk --version)" = "rtk 0.45.0"
+test -s "$HOME/.codex/RTK.md"
+test -s "$HOME/.codex/AGENTS.md"
+test "$(grep -Fc "@$HOME/.codex/RTK.md" "$HOME/.codex/AGENTS.md")" -eq 1
+grep -Fq 'Always prefix shell commands with `rtk`.' "$HOME/.codex/RTK.md"
+echo "OK: RTK установлен и глобально подключён к Codex"
+
 if [ ! -f "$HOME/.codex/config.toml" ]; then
   echo "-- Установщик не дошёл до конфига; проверяю шаблон отдельно"
   python3 - "$HOME/.codex/config.toml" <<'PY'
@@ -71,6 +78,22 @@ if [ ! -s tools/blender/addon.py ]; then
   echo "FAIL: Blender-аддон отсутствует в репозитории"
   FAILURES=$((FAILURES + 1))
 fi
+OPTIMIZER_ZIP=tools/blender/blender_model_optimizer-2.1.1.zip
+test -s "$OPTIMIZER_ZIP"
+test "$(sha256sum "$OPTIMIZER_ZIP" | cut -d ' ' -f 1)" = "f18d16492dcb786349bdf843374874342d63f526f636eeb34a239b0353e5d2c7"
+python3 - "$OPTIMIZER_ZIP" <<'PY'
+import sys
+import tomllib
+import zipfile
+
+with zipfile.ZipFile(sys.argv[1]) as archive:
+    manifest = tomllib.loads(archive.read("blender_manifest.toml").decode())
+    assert manifest["id"] == "blender_model_optimizer"
+    assert manifest["version"] == "2.1.1"
+    assert manifest["blender_version_min"] == "4.2.0"
+    assert "LICENSE" in archive.namelist()
+print("OK: 3D Model Optimizer 2.1.1 — архив и лицензия проверены")
+PY
 test -d vendor/adb-mcp/adb-proxy-socket/node_modules
 test -f vendor/adb-mcp/uxp/ps/manifest.json
 test -f vendor/adb-mcp/uxp/pr/manifest.json

@@ -36,5 +36,5 @@ uv run --with 'mcp<2' python /src/tests/blender-e2e.py client
 test -s /output/oridium-mcp-test.blend
 test -s /output/oridium-mcp-test.png
 blender -b /output/oridium-mcp-test.blend --python-exit-code 1 --python-expr \
-  "import bpy; expected={'test_ground','mcp_hero_cube','mcp_orbit_ring','key_light','fill_light','test_camera'}; assert expected <= set(bpy.data.objects.keys()); assert bpy.context.scene.camera.name == 'test_camera'"
-echo "OK: созданы /output/oridium-mcp-test.blend и /output/oridium-mcp-test.png"
+  "import bpy; expected={'test_ground','mcp_hero_cube','mcp_orbit_ring','optimizer_test_sphere','key_light','fill_light','test_camera'}; assert expected <= set(bpy.data.objects.keys()); target=bpy.data.objects['optimizer_test_sphere']; assert target['optimizer_faces_after'] < target['optimizer_faces_before']; assert bpy.context.scene.camera.name == 'test_camera'"
+echo "OK: Blender MCP создал сцену, а 3D Model Optimizer уменьшил тестовую сетку"
